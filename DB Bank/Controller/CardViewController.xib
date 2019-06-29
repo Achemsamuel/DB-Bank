@@ -61,7 +61,7 @@
                                         <constraint firstAttribute="height" constant="60" id="32t-i7-Us7"/>
                                         <constraint firstAttribute="width" constant="60" id="ITD-kw-TWD"/>
                                     </constraints>
-                                    <state key="normal" image="tra"/>
+                                    <state key="normal" image="trans"/>
                                 </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Withdraw" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xuc-wK-ikt">
                                     <rect key="frame" x="0.0" y="60" width="60" height="21"/>
@@ -130,7 +130,7 @@
                                         <constraint firstAttribute="width" constant="60" id="dHU-5u-prZ"/>
                                         <constraint firstAttribute="height" constant="60" id="dYo-OR-guc"/>
                                     </constraints>
-                                    <state key="normal" image="quick"/>
+                                    <state key="normal" image="trans"/>
                                 </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Quickteller" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ee7-JZ-bQ7">
                                     <rect key="frame" x="0.0" y="62" width="60" height="19"/>
@@ -160,7 +160,7 @@
                                         <constraint firstAttribute="width" constant="60" id="G54-Uz-3O2"/>
                                         <constraint firstAttribute="height" constant="60" id="qIR-51-nEA"/>
                                     </constraints>
-                                    <state key="normal" image="inquiryy"/>
+                                    <state key="normal" image="trans"/>
                                 </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Inquiry" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qNI-P2-O0u">
                                     <rect key="frame" x="0.0" y="60" width="60" height="21"/>
@@ -194,7 +194,7 @@
                                         <constraint firstAttribute="height" constant="60" id="FW7-HJ-jxD"/>
                                         <constraint firstAttribute="width" constant="60" id="yqd-m4-KC7"/>
                                     </constraints>
-                                    <state key="normal" image="pin"/>
+                                    <state key="normal" image="trans"/>
                                 </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pin" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0XG-B8-gw8">
                                     <rect key="frame" x="0.0" y="60" width="60" height="21"/>
@@ -294,10 +294,6 @@
         </view>
     </objects>
     <resources>
-        <image name="inquiryy" width="512" height="512"/>
-        <image name="pin" width="512" height="512"/>
-        <image name="quick" width="512" height="512"/>
-        <image name="tra" width="594" height="403"/>
         <image name="trans" width="720" height="720"/>
     </resources>
 </document>
