@@ -10,22 +10,50 @@ import UIKit
 
 class CardViewController: UIViewController {
 
+    let customView = CustomView()
+    let custombutton = CustomButton()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        setup()
     }
 
+  
     @IBOutlet weak var handleArea: UIView!
+    @IBOutlet weak var withdrawButton: UIButton!
+    @IBOutlet weak var transferButton: UIButton!
+    @IBOutlet weak var quicktellerButton: UIButton!
+    @IBOutlet weak var inquiryButton: UIButton!
+    @IBOutlet weak var pinButton: UIButton!
+    @IBOutlet weak var tableView: UITableView!
     
-    /*
-    // MARK: - Navigation
+    var servicesButtonArray : [UIButton] = []
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    func setup () {
+        tableView.delegate = self
+        tableView.dataSource = self
+        servicesButtonArray = [withdrawButton, transferButton, quicktellerButton, inquiryButton, pinButton]
+        custombutton.customizeServicesButtons(buttons: servicesButtonArray)
     }
-    */
 
 }
+
+extension CardViewController : UITableViewDataSource, UITableViewDelegate {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        //TODO: Should return number of elements in transaction Array
+        return 5
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+//        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+//        return cell
+        return UITableViewCell()
+    }
+    
+    
+}
+
+

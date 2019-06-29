@@ -17,5 +17,15 @@ class CustomButton {
         button.layer.borderColor = UIColor(red: 0.93, green: 0.94, blue: 0.95, alpha: 1).cgColor
         button.layer.cornerRadius = cornerRadius
     }
+    
+    func customizeServicesButtons (buttons : [UIButton]) {
+        
+        let cornerRadius : CGFloat = 30.0
+        for button in buttons {
+            button.layer.borderWidth = 1.0
+            button.layer.borderColor = UIColor(red: 0.93, green: 0.94, blue: 0.95, alpha: 1).cgColor
+            button.layer.cornerRadius = cornerRadius
+        }
+    }
 }
 
