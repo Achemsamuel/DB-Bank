@@ -18,13 +18,15 @@
 		A5D24DD422C387410031B9F0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A5D24DD222C387410031B9F0 /* LaunchScreen.storyboard */; };
 		A5D24DDF22C387420031B9F0 /* DB_BankTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D24DDE22C387420031B9F0 /* DB_BankTests.swift */; };
 		A5D24DEA22C387420031B9F0 /* DB_BankUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D24DE922C387420031B9F0 /* DB_BankUITests.swift */; };
-		A5D24DF822C3883F0031B9F0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A5D24DF722C3883E0031B9F0 /* GoogleService-Info.plist */; };
 		A5D24DFF22C3A3940031B9F0 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D24DFE22C3A3940031B9F0 /* OnboardingViewController.swift */; };
 		A5D24E0122C3A7A60031B9F0 /* ImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D24E0022C3A7A60031B9F0 /* ImageView.swift */; };
 		A5D24E0322C3AECE0031B9F0 /* TextFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D24E0222C3AECE0031B9F0 /* TextFields.swift */; };
 		A5D24E0522C3BAB10031B9F0 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D24E0422C3BAB10031B9F0 /* CustomButton.swift */; };
 		A5D24E0722C3DB4B0031B9F0 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D24E0622C3DB4B0031B9F0 /* SignUpViewController.swift */; };
 		A5D24E0922C3DD6A0031B9F0 /* CustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D24E0822C3DD6A0031B9F0 /* CustomView.swift */; };
+		A5F3D76722C6D57F0006907B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A5F3D76622C6D57F0006907B /* GoogleService-Info.plist */; };
+		A5F3D76A22C6D9BD0006907B /* CardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5F3D76822C6D9BD0006907B /* CardViewController.swift */; };
+		A5F3D76B22C6D9BD0006907B /* CardViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A5F3D76922C6D9BD0006907B /* CardViewController.xib */; };
 		C345D0BC1F890F4591F38B56 /* Pods_DB_BankUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66B4E2EB8E614EC7FA9EB936 /* Pods_DB_BankUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -67,13 +69,15 @@
 		A5D24DE522C387420031B9F0 /* DB BankUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "DB BankUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5D24DE922C387420031B9F0 /* DB_BankUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DB_BankUITests.swift; sourceTree = "<group>"; };
 		A5D24DEB22C387420031B9F0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A5D24DF722C3883E0031B9F0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		A5D24DFE22C3A3940031B9F0 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		A5D24E0022C3A7A60031B9F0 /* ImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageView.swift; sourceTree = "<group>"; };
 		A5D24E0222C3AECE0031B9F0 /* TextFields.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFields.swift; sourceTree = "<group>"; };
 		A5D24E0422C3BAB10031B9F0 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		A5D24E0622C3DB4B0031B9F0 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		A5D24E0822C3DD6A0031B9F0 /* CustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomView.swift; sourceTree = "<group>"; };
+		A5F3D76622C6D57F0006907B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		A5F3D76822C6D9BD0006907B /* CardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewController.swift; sourceTree = "<group>"; };
+		A5F3D76922C6D9BD0006907B /* CardViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CardViewController.xib; sourceTree = "<group>"; };
 		C4652477633823E4359CD7F3 /* Pods-DB BankUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DB BankUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DB BankUITests/Pods-DB BankUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		E5318C1DB31670875F5F5453 /* Pods_DB_BankTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DB_BankTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F7A53FFE4C3C64CAEE58D48F /* Pods_DB_Bank.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DB_Bank.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -121,7 +125,7 @@
 			isa = PBXGroup;
 			children = (
 				A5D24DC822C387400031B9F0 /* DB Bank */,
-				A5D24DF722C3883E0031B9F0 /* GoogleService-Info.plist */,
+				A5F3D76622C6D57F0006907B /* GoogleService-Info.plist */,
 				A5D24DDD22C387420031B9F0 /* DB BankTests */,
 				A5D24DE822C387420031B9F0 /* DB BankUITests */,
 				A5D24DC722C387400031B9F0 /* Products */,
@@ -200,6 +204,8 @@
 				A5D24E0622C3DB4B0031B9F0 /* SignUpViewController.swift */,
 				A5B2617022C51AC100B7C2F0 /* SigninViewController.swift */,
 				A5B2617222C6598400B7C2F0 /* DashboardViewController.swift */,
+				A5F3D76822C6D9BD0006907B /* CardViewController.swift */,
+				A5F3D76922C6D9BD0006907B /* CardViewController.xib */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -342,8 +348,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				A5D24DD422C387410031B9F0 /* LaunchScreen.storyboard in Resources */,
+				A5F3D76722C6D57F0006907B /* GoogleService-Info.plist in Resources */,
 				A5D24DD122C387410031B9F0 /* Assets.xcassets in Resources */,
-				A5D24DF822C3883F0031B9F0 /* GoogleService-Info.plist in Resources */,
+				A5F3D76B22C6D9BD0006907B /* CardViewController.xib in Resources */,
 				A5D24DCF22C387400031B9F0 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -498,6 +505,7 @@
 				A5D24E0122C3A7A60031B9F0 /* ImageView.swift in Sources */,
 				A5D24DFF22C3A3940031B9F0 /* OnboardingViewController.swift in Sources */,
 				A5B2617322C6598400B7C2F0 /* DashboardViewController.swift in Sources */,
+				A5F3D76A22C6D9BD0006907B /* CardViewController.swift in Sources */,
 				A5D24DCA22C387400031B9F0 /* AppDelegate.swift in Sources */,
 				A5B2617122C51AC100B7C2F0 /* SigninViewController.swift in Sources */,
 			);
