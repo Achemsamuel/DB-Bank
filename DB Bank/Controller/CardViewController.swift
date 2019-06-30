@@ -13,11 +13,15 @@ class CardViewController: UIViewController {
     let customView = CustomView()
     let custombutton = CustomButton()
     
+    //TableView Cell
+    let cellId = "transactionsCell"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         setup()
+        tableViewSetup()
     }
 
   
@@ -30,27 +34,40 @@ class CardViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     var servicesButtonArray : [UIButton] = []
+    var servicesText : UILabel = UILabel()
+    var transactionArray = [10000000, 244000, 34100, 60000, 41000, 32600]
 
     func setup () {
-        tableView.delegate = self
-        tableView.dataSource = self
         servicesButtonArray = [withdrawButton, transferButton, quicktellerButton, inquiryButton, pinButton]
         custombutton.customizeServicesButtons(buttons: servicesButtonArray)
+        
+    }
+    
+    func tableViewSetup () {
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.register(TransactionsTableViewCell.self, forCellReuseIdentifier: cellId)
     }
 
 }
 
 extension CardViewController : UITableViewDataSource, UITableViewDelegate {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         //TODO: Should return number of elements in transaction Array
-        return 5
+        
+        return transactionArray.count
     }
+    
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-//        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-//        return cell
-        return UITableViewCell()
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! TransactionsTableViewCell
+        
+        cell.valueLabel.text = ("-\(transactionArray[indexPath.row])")
+    
+        return cell
+       
     }
     
     

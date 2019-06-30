@@ -685,9 +685,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="main" translatesAutoresizingMaskIntoConstraints="NO" id="GZN-6x-6mi">
+                            <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="main" translatesAutoresizingMaskIntoConstraints="NO" id="GZN-6x-6mi">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                             </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="200,000" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eEu-CI-Ece">
+                                <rect key="frame" x="88" y="119" width="199" height="19"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="19" id="6qV-FG-hsO"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="GujaratiSangamMN-Bold" family="Gujarati Sangam MN" pointSize="18"/>
+                                <color key="textColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lhm-yq-2D1">
                                 <rect key="frame" x="30" y="80" width="16" height="18"/>
                                 <state key="normal" backgroundImage="menu bar"/>
@@ -756,6 +765,8 @@
                             <constraint firstItem="GZN-6x-6mi" firstAttribute="leading" secondItem="9Bv-N3-Hx6" secondAttribute="leading" id="2S9-0t-W2v"/>
                             <constraint firstItem="g41-x7-GCN" firstAttribute="trailing" secondItem="vvH-Wu-Dcg" secondAttribute="trailing" constant="30" id="6Ke-92-RNE"/>
                             <constraint firstAttribute="bottom" secondItem="GZN-6x-6mi" secondAttribute="bottom" id="7gG-Zt-z4P"/>
+                            <constraint firstItem="eEu-CI-Ece" firstAttribute="leading" secondItem="g41-x7-GCN" secondAttribute="leading" constant="88" id="7xh-9y-ep5"/>
+                            <constraint firstItem="eEu-CI-Ece" firstAttribute="centerX" secondItem="4qP-As-XDT" secondAttribute="centerX" id="A0o-Gg-VnI"/>
                             <constraint firstItem="XVN-tJ-eim" firstAttribute="top" secondItem="vvH-Wu-Dcg" secondAttribute="bottom" constant="69.000000000000909" id="Bli-gx-XFd"/>
                             <constraint firstItem="g41-x7-GCN" firstAttribute="trailing" secondItem="Jbg-5z-TBI" secondAttribute="trailing" constant="200" id="Fjx-ku-1YR"/>
                             <constraint firstItem="XVN-tJ-eim" firstAttribute="centerX" secondItem="9Bv-N3-Hx6" secondAttribute="centerX" id="Gzo-1r-Rmo"/>
@@ -774,6 +785,7 @@
                             <constraint firstItem="Otp-48-0t6" firstAttribute="leading" secondItem="g41-x7-GCN" secondAttribute="leading" constant="30" id="gb2-Ob-4kb"/>
                             <constraint firstItem="vvH-Wu-Dcg" firstAttribute="top" secondItem="g41-x7-GCN" secondAttribute="top" constant="23" id="kcC-iJ-Vnc"/>
                             <constraint firstItem="Otp-48-0t6" firstAttribute="top" secondItem="Jbg-5z-TBI" secondAttribute="bottom" constant="5" id="vDd-iv-LzH"/>
+                            <constraint firstItem="eEu-CI-Ece" firstAttribute="top" secondItem="4qP-As-XDT" secondAttribute="bottom" constant="17" id="xvN-pl-kKq"/>
                             <constraint firstItem="4qP-As-XDT" firstAttribute="centerX" secondItem="9Bv-N3-Hx6" secondAttribute="centerX" id="zFs-7X-IND"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="g41-x7-GCN"/>
@@ -783,6 +795,7 @@
                         <outlet property="creditCardImageView" destination="XVN-tJ-eim" id="ZQ1-o4-lPg"/>
                         <outlet property="menuBatButton" destination="Lhm-yq-2D1" id="Vse-Jh-h9P"/>
                         <outlet property="profileImage" destination="vvH-Wu-Dcg" id="qh2-fK-6CB"/>
+                        <outlet property="topBalance" destination="eEu-CI-Ece" id="SqO-ga-VXj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sbM-Sw-N7q" userLabel="First Responder" sceneMemberID="firstResponder"/>

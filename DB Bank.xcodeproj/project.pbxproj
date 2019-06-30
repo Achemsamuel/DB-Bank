@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		6F87C29000D5ED3B8965B303 /* Pods_DB_BankTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5318C1DB31670875F5F5453 /* Pods_DB_BankTests.framework */; };
 		8553E73B52A543AF4214F1E8 /* Pods_DB_Bank.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7A53FFE4C3C64CAEE58D48F /* Pods_DB_Bank.framework */; };
+		A531902422C91F7A0083E85A /* TransactionsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A531902322C91F7A0083E85A /* TransactionsTableViewCell.swift */; };
 		A5B2617122C51AC100B7C2F0 /* SigninViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5B2617022C51AC100B7C2F0 /* SigninViewController.swift */; };
 		A5B2617322C6598400B7C2F0 /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5B2617222C6598400B7C2F0 /* DashboardViewController.swift */; };
 		A5D24DCA22C387400031B9F0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D24DC922C387400031B9F0 /* AppDelegate.swift */; };
@@ -54,6 +55,7 @@
 		4F314A464EF00621A3F174B1 /* Pods-DB Bank.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DB Bank.release.xcconfig"; path = "Pods/Target Support Files/Pods-DB Bank/Pods-DB Bank.release.xcconfig"; sourceTree = "<group>"; };
 		66B4E2EB8E614EC7FA9EB936 /* Pods_DB_BankUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DB_BankUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C5E5FC0EBA790BBAD5A6EFB /* Pods-DB BankUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DB BankUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-DB BankUITests/Pods-DB BankUITests.release.xcconfig"; sourceTree = "<group>"; };
+		A531902322C91F7A0083E85A /* TransactionsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsTableViewCell.swift; sourceTree = "<group>"; };
 		A5B2617022C51AC100B7C2F0 /* SigninViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigninViewController.swift; sourceTree = "<group>"; };
 		A5B2617222C6598400B7C2F0 /* DashboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewController.swift; sourceTree = "<group>"; };
 		A5D24DC622C387400031B9F0 /* DB Bank.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DB Bank.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -181,6 +183,7 @@
 		A5D24DF922C3968F0031B9F0 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				A531902322C91F7A0083E85A /* TransactionsTableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -503,6 +506,7 @@
 				A5D24DCC22C387400031B9F0 /* SuperViewController.swift in Sources */,
 				A5D24E0522C3BAB10031B9F0 /* CustomButton.swift in Sources */,
 				A5D24E0122C3A7A60031B9F0 /* ImageView.swift in Sources */,
+				A531902422C91F7A0083E85A /* TransactionsTableViewCell.swift in Sources */,
 				A5D24DFF22C3A3940031B9F0 /* OnboardingViewController.swift in Sources */,
 				A5B2617322C6598400B7C2F0 /* DashboardViewController.swift in Sources */,
 				A5F3D76A22C6D9BD0006907B /* CardViewController.swift in Sources */,
