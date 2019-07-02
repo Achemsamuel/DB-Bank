@@ -12,6 +12,7 @@
 		A531902422C91F7A0083E85A /* TransactionsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A531902322C91F7A0083E85A /* TransactionsTableViewCell.swift */; };
 		A5B2617122C51AC100B7C2F0 /* SigninViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5B2617022C51AC100B7C2F0 /* SigninViewController.swift */; };
 		A5B2617322C6598400B7C2F0 /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5B2617222C6598400B7C2F0 /* DashboardViewController.swift */; };
+		A5C3836E22CB62A200A312AE /* Acoount.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5C3836D22CB62A200A312AE /* Acoount.swift */; };
 		A5D24DCA22C387400031B9F0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D24DC922C387400031B9F0 /* AppDelegate.swift */; };
 		A5D24DCC22C387400031B9F0 /* SuperViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D24DCB22C387400031B9F0 /* SuperViewController.swift */; };
 		A5D24DCF22C387400031B9F0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A5D24DCD22C387400031B9F0 /* Main.storyboard */; };
@@ -58,6 +59,7 @@
 		A531902322C91F7A0083E85A /* TransactionsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsTableViewCell.swift; sourceTree = "<group>"; };
 		A5B2617022C51AC100B7C2F0 /* SigninViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigninViewController.swift; sourceTree = "<group>"; };
 		A5B2617222C6598400B7C2F0 /* DashboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewController.swift; sourceTree = "<group>"; };
+		A5C3836D22CB62A200A312AE /* Acoount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Acoount.swift; sourceTree = "<group>"; };
 		A5D24DC622C387400031B9F0 /* DB Bank.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DB Bank.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5D24DC922C387400031B9F0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A5D24DCB22C387400031B9F0 /* SuperViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuperViewController.swift; sourceTree = "<group>"; };
@@ -216,6 +218,7 @@
 		A5D24DFC22C396BB0031B9F0 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				A5C3836D22CB62A200A312AE /* Acoount.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -410,6 +413,7 @@
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -420,6 +424,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -509,6 +514,7 @@
 				A531902422C91F7A0083E85A /* TransactionsTableViewCell.swift in Sources */,
 				A5D24DFF22C3A3940031B9F0 /* OnboardingViewController.swift in Sources */,
 				A5B2617322C6598400B7C2F0 /* DashboardViewController.swift in Sources */,
+				A5C3836E22CB62A200A312AE /* Acoount.swift in Sources */,
 				A5F3D76A22C6D9BD0006907B /* CardViewController.swift in Sources */,
 				A5D24DCA22C387400031B9F0 /* AppDelegate.swift in Sources */,
 				A5B2617122C51AC100B7C2F0 /* SigninViewController.swift in Sources */,

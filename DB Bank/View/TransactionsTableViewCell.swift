@@ -28,7 +28,7 @@ class TransactionsTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         cellLabel = UILabel(frame: CGRect(x: 15, y: 0, width: 100.0, height: 40))
-        cellLabel.text = "Withdrawal"
+        cellLabel.text = "Debit"
         cellLabel.textColor = .red
         
         valueLabel = UILabel(frame:  CGRect(x: frame.width - 15, y: 0, width: 200, height: 40))

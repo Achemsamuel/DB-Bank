@@ -11,6 +11,8 @@ import GoogleSignIn
 import Firebase
 import SVProgressHUD
 
+
+
 class SuperViewController: UIViewController, GIDSignInDelegate {
     
   //Segue Identifiers
@@ -19,15 +21,20 @@ class SuperViewController: UIViewController, GIDSignInDelegate {
     let goToRecoverPin = "recoverPin"
     let goToDashboard = "dashboard"
     
+    //Amount Withdrawn
+    var amountWithdrawn = 0
 
+    
     override func viewDidLoad() {
         super.viewDidLoad()
             doSetUp()
+            
         }
     
     func doSetUp () {
         GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
         GIDSignIn.sharedInstance().delegate = self
+        
         
     }
     
@@ -117,6 +124,126 @@ class SuperViewController: UIViewController, GIDSignInDelegate {
         alert.addAction(UIAlertAction(title: "Retry", style: .destructive, handler: nil))
         
         present(alert, animated: true)
+    }
+    
+    func inquiryAlert (balance : String) {
+        let alert = UIAlertController(title: "Balance: \(balance)", message: "", preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "OK!", style: .cancel, handler: nil))
+        
+        present(alert, animated: true)
+    }
+    
+    func pinChangeAlert () {
+        let alert = UIAlertController(title: "Change Pin", message: "Are you sure you want to change your pin?", preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action) in
+            print("Pin Changed")
+        }))
+        alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
+        
+        present(alert, animated: true)
+    }
+    
+    //Retrieve Balance
+   @objc dynamic func retrieveBalance () -> Int {
+        //Should retrieve balance from the firDatabase instead
+        //let dashboardVC = DashboardViewController()
+        let balance = "180000"
+        if let convertInt = Int(balance) {
+            return convertInt
+        } else {
+            return 0
+        }
+        //Balance label should read 0 at start
+    }
+    
+    //Choose Withdrawal Amount Alert View
+    func withdrawalAmountAlert  ()  {
+        
+            let alert = UIAlertController(title: "Withdraw", message: "", preferredStyle: .alert)
+        
+            alert.addAction(UIAlertAction(title: "N500", style:.default , handler: { (action) in
+                //print("500 naira withdrawn")
+                self.amountWithdrawn = 500
+                //call a function that takes in the amount and then subtracts it and returns the value remaining to the balance
+                var balance = self.retrieveBalance()
+                print("Balance from func is :\(balance)")
+                
+                if balance >= 500 {
+                    print("Can withdraw")
+                    balance -= 500
+                    print("Balance from func is :\(balance)")
+                }
+                else {
+                    print("Sadly, you do not have sufficient funds")
+                }
+                
+            }))
+            alert.addAction(UIAlertAction(title: "N1000", style:.default , handler: { (action) in
+                print("1000 naira withdrawn")
+                self.amountWithdrawn = 1000
+               // cashWithdrawn  = 1000
+                
+            }))
+            alert.addAction(UIAlertAction(title: "N2000", style:.default , handler: { (action) in
+                print("2000 naira withdrawn")
+                self.amountWithdrawn = 2000
+               // cashWithdrawn = 2000
+            }))
+            alert.addAction(UIAlertAction(title: "N5000", style:.default , handler: { (action) in
+                print("5000 naira withdrawn")
+                //self.amountWithdrawn = 5000
+            }))
+            alert.addAction(UIAlertAction(title: "N10000", style:.default , handler: { (action) in
+                print("10000 naira withdrawn")
+                //self.amountWithdrawn = 10000
+            }))
+            alert.addAction(UIAlertAction(title: "N20000", style:.default , handler: { (action) in
+                print("20000 naira withdrawn")
+                self.amountWithdrawn = 20000
+            }))
+            
+            alert.addAction(UIAlertAction(title: "Enter Amount", style: .default, handler: { (action) in
+                self.enterAmountAlert()
+            }))
+            
+            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+            
+            present(alert, animated: true)
+            //print("Amount withdrawn \(cashWithdrawn)")
+        
+        
+    }
+    
+    //Enter Amount to withdraw
+    
+    func enterAmountAlert ()  {
+        
+        var amountEntered = 0
+        
+        let alert = UIAlertController(title: "Enter Amount", message: "", preferredStyle: .alert)
+        
+        var textField = UITextField()
+        
+        alert.addTextField { (alertTextField) in
+            alertTextField.placeholder = "enter amount"
+            textField = alertTextField
+        }
+        alert.addAction(UIAlertAction(title: "Withdraw", style: .default, handler: { (action) in
+            print(textField.text!)
+            if let intText = Int(textField.text!) {
+                amountEntered = intText
+                 print("new amount entered \(amountEntered)")
+                self.amountWithdrawn = amountEntered
+            }
+          
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+
+        present(alert, animated: true)
+        
+        
     }
     
     //MARK: Date Picker Setup

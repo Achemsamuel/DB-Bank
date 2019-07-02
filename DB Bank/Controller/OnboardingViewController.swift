@@ -22,8 +22,8 @@ class OnboardingViewController : SuperViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        GIDSignIn.sharedInstance()?.signOut()
-        super.signOut()
+//        GIDSignIn.sharedInstance()?.signOut()
+//        super.signOut()
     }
     
     override func viewWillAppear(_ animated: Bool) {
