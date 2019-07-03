@@ -22,11 +22,12 @@ class CardViewController: SuperViewController {
     //TableView Cell
     let cellId = "transactionsCell"
     
+    let quicktellerActionsArray = ["Send/Receieve Money", "Buy Airtime", "Pay Bills", "Book Flight", "Request Lone", "Shop"]
     
     //T:
     var balance = ""
     var accountArray : [Account] = [Account]()
-    var dBBalance = 0
+    //var dBBalance = 0
     //Transaction
     var transactionHistoryArray : [TransactionHistory] = [TransactionHistory]()
     
@@ -60,20 +61,19 @@ class CardViewController: SuperViewController {
      IB Actions
 */
     @IBAction func withdrawButtonPressed(_ sender: UIButton) {
-       withdrawalAmountAlert()
+        withdrawalAmountAlert(type: "Withdrawal")
     }
     
     @IBAction func transferButtonPressed(_ sender: UIButton) {
-        
+        transferToAccount(type : "Transfer")
     }
     
     @IBAction func quicktellerButtonPressed(_ sender: UIButton) {
-        
+        quicktellerAlertView(array: quicktellerActionsArray)
     }
     
     @IBAction func inquiryButtonPressed(_ sender: UIButton) {
-        let stringValue = super.intToString(value: dBBalance)
-        self.balance = stringValue
+        self.balance = formatBalance(balance: self.DBalance)
         inquiryAlert(balance: balance)
         
     }

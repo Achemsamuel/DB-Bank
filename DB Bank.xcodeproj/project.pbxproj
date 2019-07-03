@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		6F87C29000D5ED3B8965B303 /* Pods_DB_BankTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5318C1DB31670875F5F5453 /* Pods_DB_BankTests.framework */; };
 		8553E73B52A543AF4214F1E8 /* Pods_DB_Bank.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7A53FFE4C3C64CAEE58D48F /* Pods_DB_Bank.framework */; };
+		A509212B22CCFB05001D69EA /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A509212922CCFB05001D69EA /* SWRevealViewController.m */; };
+		A509212D22CD392D001D69EA /* QuicktellerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A509212C22CD392D001D69EA /* QuicktellerTableViewController.swift */; };
 		A531902422C91F7A0083E85A /* TransactionsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A531902322C91F7A0083E85A /* TransactionsTableViewCell.swift */; };
 		A5B2617122C51AC100B7C2F0 /* SigninViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5B2617022C51AC100B7C2F0 /* SigninViewController.swift */; };
 		A5B2617322C6598400B7C2F0 /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5B2617222C6598400B7C2F0 /* DashboardViewController.swift */; };
@@ -57,6 +59,10 @@
 		4F314A464EF00621A3F174B1 /* Pods-DB Bank.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DB Bank.release.xcconfig"; path = "Pods/Target Support Files/Pods-DB Bank/Pods-DB Bank.release.xcconfig"; sourceTree = "<group>"; };
 		66B4E2EB8E614EC7FA9EB936 /* Pods_DB_BankUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DB_BankUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C5E5FC0EBA790BBAD5A6EFB /* Pods-DB BankUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DB BankUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-DB BankUITests/Pods-DB BankUITests.release.xcconfig"; sourceTree = "<group>"; };
+		A509212822CCFB04001D69EA /* DB Bank-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DB Bank-Bridging-Header.h"; sourceTree = "<group>"; };
+		A509212922CCFB05001D69EA /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
+		A509212A22CCFB05001D69EA /*  SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = " SWRevealViewController.h"; sourceTree = "<group>"; };
+		A509212C22CD392D001D69EA /* QuicktellerTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuicktellerTableViewController.swift; sourceTree = "<group>"; };
 		A531902322C91F7A0083E85A /* TransactionsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsTableViewCell.swift; sourceTree = "<group>"; };
 		A5B2617022C51AC100B7C2F0 /* SigninViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigninViewController.swift; sourceTree = "<group>"; };
 		A5B2617222C6598400B7C2F0 /* DashboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewController.swift; sourceTree = "<group>"; };
@@ -213,6 +219,7 @@
 				A5B2617222C6598400B7C2F0 /* DashboardViewController.swift */,
 				A5F3D76822C6D9BD0006907B /* CardViewController.swift */,
 				A5F3D76922C6D9BD0006907B /* CardViewController.xib */,
+				A509212C22CD392D001D69EA /* QuicktellerTableViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -230,6 +237,9 @@
 			isa = PBXGroup;
 			children = (
 				A5D24DD022C387410031B9F0 /* Assets.xcassets */,
+				A509212A22CCFB05001D69EA /*  SWRevealViewController.h */,
+				A509212922CCFB05001D69EA /* SWRevealViewController.m */,
+				A509212822CCFB04001D69EA /* DB Bank-Bridging-Header.h */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -320,6 +330,7 @@
 				TargetAttributes = {
 					A5D24DC522C387400031B9F0 = {
 						CreatedOnToolsVersion = 10.2.1;
+						LastSwiftMigration = 1020;
 					};
 					A5D24DD922C387420031B9F0 = {
 						CreatedOnToolsVersion = 10.2.1;
@@ -510,6 +521,7 @@
 			files = (
 				A5D24E0322C3AECE0031B9F0 /* TextFields.swift in Sources */,
 				A5D24E0922C3DD6A0031B9F0 /* CustomView.swift in Sources */,
+				A509212B22CCFB05001D69EA /* SWRevealViewController.m in Sources */,
 				A5D24E0722C3DB4B0031B9F0 /* SignUpViewController.swift in Sources */,
 				A5D24DCC22C387400031B9F0 /* SuperViewController.swift in Sources */,
 				A5D24E0522C3BAB10031B9F0 /* CustomButton.swift in Sources */,
@@ -518,6 +530,7 @@
 				A5C7F1CF22CC3D4A00984F9D /* TransactionHistory.swift in Sources */,
 				A5D24DFF22C3A3940031B9F0 /* OnboardingViewController.swift in Sources */,
 				A5B2617322C6598400B7C2F0 /* DashboardViewController.swift in Sources */,
+				A509212D22CD392D001D69EA /* QuicktellerTableViewController.swift in Sources */,
 				A5C3836E22CB62A200A312AE /* Acoount.swift in Sources */,
 				A5F3D76A22C6D9BD0006907B /* CardViewController.swift in Sources */,
 				A5D24DCA22C387400031B9F0 /* AppDelegate.swift in Sources */,
@@ -697,6 +710,7 @@
 			baseConfigurationReference = 2038C7A4EFB0930D984315C1 /* Pods-DB Bank.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5L94XRPVKN;
 				INFOPLIST_FILE = "DB Bank/Info.plist";
@@ -706,6 +720,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.achemsamuel.DB-Bank";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "DB Bank/Helpers/DB Bank-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -716,6 +732,7 @@
 			baseConfigurationReference = 4F314A464EF00621A3F174B1 /* Pods-DB Bank.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5L94XRPVKN;
 				INFOPLIST_FILE = "DB Bank/Info.plist";
@@ -725,6 +742,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.achemsamuel.DB-Bank";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "DB Bank/Helpers/DB Bank-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

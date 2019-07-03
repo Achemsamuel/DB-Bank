@@ -58,13 +58,15 @@ class SignUpViewController : SuperViewController {
                     
                     if error != nil {
                         print("Login unsuccessfull")
-                        self.loginErrorAlert()
+                        self.informationSent()
                         SVProgressHUD.dismiss()
                     } else {
                         print("\(String(describing: user)) Successfully logged in")
                         self.instantiateDashVC(identifier: self.goToDashboard)
+                        
                     }
                 }
+                
                 
             } else {
                 pinMismatchAlert()
@@ -76,7 +78,7 @@ class SignUpViewController : SuperViewController {
     
     func setUpView () {
         dateTextField = dateOfBirthTextField
-        datePicker(textField: dateTextField)
+        datePicker(textField: dateOfBirthTextField)
         pinTextFeild.keyboardType = .numberPad
         verifyPinTextField.keyboardType = .numberPad
         SVProgressHUD.dismiss()
@@ -90,7 +92,7 @@ class SignUpViewController : SuperViewController {
         datePicker = UIDatePicker()
         datePicker?.datePickerMode = .date
         textField.inputView = datePicker
-        datePicker?.addTarget(self, action: #selector(super.dateChanged(datePicker:textField:dateTextField:)), for: .valueChanged)
+        datePicker?.addTarget(self, action: #selector(super.dateChanged(datePicker: textField: dateTextField:)), for: .valueChanged)
         datePicker?.backgroundColor = .clear
     }
 }

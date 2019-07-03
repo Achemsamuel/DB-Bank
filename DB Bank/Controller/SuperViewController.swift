@@ -11,6 +11,8 @@ import GoogleSignIn
 import Firebase
 import FirebaseDatabase
 import SVProgressHUD
+import MapKit
+import CoreLocation
 
 
 //Firebase Database
@@ -24,12 +26,14 @@ class SuperViewController: UIViewController, GIDSignInDelegate {
     let goToSignin = "goToSignin"
     let goToRecoverPin = "recoverPin"
     let goToDashboard = "dashboard"
+    let goToNavigationVC = "goToOnboardingVC"
+    let goToQuicktellerVC = "quicktellerVC"
+    
+    //Location Manager
+    let locationManager = CLLocationManager()
     
     //Amount Withdrawn
     var amountWithdrawn = 0
-  
-
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,6 +45,7 @@ class SuperViewController: UIViewController, GIDSignInDelegate {
         }
     
     func doSetUp () {
+        locationManager.requestWhenInUseAuthorization()
         GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
         GIDSignIn.sharedInstance().delegate = self
         
@@ -78,7 +83,7 @@ class SuperViewController: UIViewController, GIDSignInDelegate {
     
     func showNavigationBar () {
         guard let navigationBar = navigationController?.navigationBar else {
-            fatalError("Navigation Contrller Does not exist")}
+            fatalError("Navigation Controller Does not exist")}
         navigationBar.isHidden = false
     }
     
@@ -100,9 +105,44 @@ class SuperViewController: UIViewController, GIDSignInDelegate {
         
     }
     
+    public func instantiateOnboardingVC (identifier : String) {
+        guard let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: identifier) as? OnboardingViewController
+            else {
+                fatalError()
+        }
+        present(vc, animated: true)
+        
+    }
+    
+ /*   public func instantiateQuicktellerVC (identifier : String) {
+        guard let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: identifier) as? QuicktellerTableViewController
+            else {
+                fatalError()
+        }
+        present(vc, animated: true)
+    } */
+    
+    
     /*
      MARK: UI Alert Set up
 */
+    
+    func quicktellerAlertView (array : [String]) {
+        
+        let alert = UIAlertController(title: "Quickteller", message: "", preferredStyle: .alert)
+        
+        for i in 0 ..< array.count {
+            let item = array[i]
+        
+            alert.addAction(UIAlertAction(title: item, style: .default, handler: { (action) in
+                print("Can't do anything at this time")
+            }))
+        }
+        alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { (action) in
+            
+        }))
+         present(alert, animated: true)
+    }
     
     func failedSignInAlert () {
         let alert = UIAlertController(title: "Oops! 😢", message: "There was an error signing you in. Did You fill the fields correctly? If yes, then check your internet connection", preferredStyle: .actionSheet)
@@ -169,13 +209,60 @@ class SuperViewController: UIViewController, GIDSignInDelegate {
         
         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action) in
             print("Pin Changed")
+            self.cannotChangePinAlert()
         }))
         alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
         
         present(alert, animated: true)
     }
     
+    func cannotChangePinAlert () {
+        
+        let alert = UIAlertController(title: "Sorry, you cannot change your pin at this time. Please contact your bank", message: "", preferredStyle: .actionSheet)
+        
+        alert.addAction(UIAlertAction(title: "OK!", style: .cancel, handler: nil))
+        
+        present(alert, animated: true)
+    }
     
+    func informationSent () {
+        let alert = UIAlertController(title: "Request Sent", message: "Your request to open a new account has been logged, please contact your bank for your login details", preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "Done", style: .default, handler: { (action) in
+          
+        }))
+        
+        present(alert, animated: true)
+    }
+    
+    func transactionSuccessful (balance: Int, type: String, amount: Int) {
+        let alert = UIAlertController(title: "Transaction Successful", message: "Please take your cash.", preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "Done", style: .default, handler: { (action) in
+            self.reciept(balance: balance, type: type, amount: amount)
+        }))
+        
+        present(alert, animated: true)
+    }
+    
+    func reciept (balance : Int, type : String, amount : Int) {
+        
+        let dateTime = dateGetter()
+        
+        let alert = UIAlertController(title: "Receipt", message: "Balance : \(balance) \n Date: \(dateTime) \n Transaction: \(type) \n Amount: \(amount)", preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "Print", style: .cancel, handler: nil))
+        
+        present(alert, animated: true)
+    }
+    
+    func dateGetter () -> String {
+        let date = Date()
+        let format = DateFormatter()
+        format.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        let formattedDate = format.string(from: date)
+        return formattedDate
+    }
     
     //MARK: Send Balance To DB
     @objc dynamic func sendBalanceToDB (balance : Int) {
@@ -248,12 +335,13 @@ class SuperViewController: UIViewController, GIDSignInDelegate {
         //Balance label should read 0 at start
     
     //Withdraw Amount
-    func calculateBalance (balance :  Int, amount: Int) {
+    func calculateBalance (balance :  Int, amount: Int, type: String) {
         var newBalance : Int
         if (balance > amount) {
             newBalance = balance - amount
             self.sendBalanceToDB(balance: newBalance)
             self.sendTransactionToDB(amount: amount)
+            transactionSuccessful(balance: balance, type: type, amount: amount)
         } else {
             insufficientFundsAlert()
             print("Insufficient funds")
@@ -269,79 +357,37 @@ class SuperViewController: UIViewController, GIDSignInDelegate {
     }
     
     //Choose Withdrawal Amount Alert View
-    func withdrawalAmountAlert  ()  {
+    func withdrawalAmountAlert  (type : String)  {
         
             let alert = UIAlertController(title: "Withdraw", message: "", preferredStyle: .alert)
         
-            alert.addAction(UIAlertAction(title: "N500", style:.default , handler: { (action) in
-                
-                self.amountWithdrawn = 500
-                let balance = self.getbalance()
-                print("Gotten Balance : \(balance)")
-               self.calculateBalance(balance: balance, amount: 500)
-                
-            }))
+            let amountArray = [500, 1000, 2000, 5000, 10000, 20000]
         
-            alert.addAction(UIAlertAction(title: "N1000", style:.default , handler: { (action) in
-                print("1000 naira withdrawn")
-                self.amountWithdrawn = 1000
-                let balance = self.getbalance()
-                print("Gotten Balance : \(balance)")
-               self.calculateBalance(balance: balance, amount: 1000)
+        for i in 0 ..< amountArray.count {
+            let amount = amountArray[i]
+            
+            alert.addAction(UIAlertAction(title: "\(amount)", style:.default , handler: { (action) in
                 
-                
-            }))
-        
-            alert.addAction(UIAlertAction(title: "N2000", style:.default , handler: { (action) in
-                print("2000 naira withdrawn")
-                self.amountWithdrawn = 2000
+                self.amountWithdrawn = amount
                 let balance = self.getbalance()
                 print("Gotten Balance : \(balance)")
-               self.calculateBalance(balance: balance, amount: 2000)
-                
-            }))
-        
-            alert.addAction(UIAlertAction(title: "N5000", style:.default , handler: { (action) in
-                print("5000 naira withdrawn")
-                let balance = self.getbalance()
-                print("Gotten Balance : \(balance)")
-                self.calculateBalance(balance: balance, amount: 5000)
-               
-            }))
-        
-            alert.addAction(UIAlertAction(title: "N10000", style:.default , handler: { (action) in
-                print("10000 naira withdrawn")
-                self.amountWithdrawn = 10000
-                let balance = self.getbalance()
-                print("Gotten Balance : \(balance)")
-                self.calculateBalance(balance: balance, amount: 10000)
-                
-            }))
-        
-            alert.addAction(UIAlertAction(title: "N20000", style:.default , handler: { (action) in
-                print("20000 naira withdrawn")
-                self.amountWithdrawn = 20000
-                let balance = self.getbalance()
-                print("Gotten Balance : \(balance)")
-                self.calculateBalance(balance: balance, amount: 20000)
+                self.calculateBalance(balance: balance, amount: amount, type: type)
                 
             }))
             
+        }
             alert.addAction(UIAlertAction(title: "Enter Amount", style: .default, handler: { (action) in
-                self.enterAmountAlert()
+                self.enterAmountAlert(type: type)
             }))
             
             alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
             
             present(alert, animated: true)
-        
-        
-        
     }
     
     //Enter Amount to withdraw
     
-    func enterAmountAlert ()  {
+    func enterAmountAlert (type : String)  {
         
         let alert = UIAlertController(title: "Enter Amount", message: "", preferredStyle: .alert)
         
@@ -355,14 +401,22 @@ class SuperViewController: UIViewController, GIDSignInDelegate {
             print(textField.text!)
             
             if textField.text!.isEmpty {
-                print("Please enter valid text")
+                self.enterValidAccount(title: "Please enter valid amount")
             } else {
+                
                 let intBalance = self.stringToInt(value: textField.text!)
-                print("new amount entered \(intBalance)")
-                self.amountWithdrawn = intBalance
-                let balance = self.getbalance()
-                print("Gotten Balance : \(balance)")
-                self.calculateBalance(balance: balance, amount: intBalance)
+                
+                if (intBalance % 500 != 0) {
+                    self.enterValidAccount(title: "Please enter a multiple of N500 or N1000")
+                    
+                } else {
+                    print("new amount entered \(intBalance)")
+                    self.amountWithdrawn = intBalance
+                    let balance = self.getbalance()
+                    print("Gotten Balance : \(balance)")
+                    self.calculateBalance(balance: balance, amount: intBalance, type: type)
+                }
+                
                 
             }
             
@@ -374,6 +428,69 @@ class SuperViewController: UIViewController, GIDSignInDelegate {
         
         
     }
+    
+    //MARK: Transfer
+    func transferToAccount (type : String) {
+        
+        let alert = UIAlertController(title: "Enter Recipent Bank Name", message: "", preferredStyle: .alert)
+        
+        var textField = UITextField()
+        
+        alert.addTextField { (alertTextField) in
+            alertTextField.placeholder = "enter bank name"
+            textField = alertTextField
+        }
+        
+        alert.addAction(UIAlertAction(title: "Done", style: .default, handler: { (action) in
+            //Do something with the bank name and account number here
+            if textField.text?.isEmpty == true {
+                self.enterValidAccount(title: "You have to enter a valid account name to proceed")
+            } else {
+                self.enterAccountNumber(type: type)
+            }
+        }))
+        
+        present(alert, animated: true)
+    }
+    
+    func enterAccountNumber (type : String) {
+        
+        let alert = UIAlertController(title: "Enter Recipent Account Number", message: "", preferredStyle: .alert)
+        
+        var textField = UITextField()
+        
+        alert.addTextField { (alertTextField) in
+            alertTextField.placeholder = "enter account number"
+            textField = alertTextField
+        }
+        
+        alert.addAction(UIAlertAction(title: "Done", style: .default, handler: { (action) in
+            if textField.text?.isEmpty == true {
+                self.enterValidAccount(title: "You have to enter a valid account number to proceed")
+                
+            } else {
+                if textField.text!.count < 10 || textField.text!.count > 10 {
+                    self.enterValidAccount(title: "You did not enter a valid account number.")
+                } else {
+                    self.withdrawalAmountAlert(type: type)
+                }
+            }
+        }))
+        
+        present(alert, animated: true)
+    }
+    
+    func enterValidAccount (title : String) {
+        let alert = UIAlertController(title: title, message: "", preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "Done", style: .default, handler: { (action) in
+            
+        }))
+        
+        present(alert, animated: true)
+    }
+    
+    //Format Balance
     
     func formatBalance (balance : Int)  -> String {
         
@@ -404,6 +521,7 @@ extension SuperViewController : GIDSignInUIDelegate {
         
         GIDSignIn.sharedInstance()?.uiDelegate = self
         GIDSignIn.sharedInstance()?.signIn()
+       
     }
     
     func signOut () {
@@ -421,3 +539,16 @@ extension SuperViewController : GIDSignInUIDelegate {
     
 }
 
+extension SuperViewController : CLLocationManagerDelegate {
+    
+    func doLocationSetup () {
+        
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+            locationManager.startUpdatingLocation()
+        }
+    }
+    
+    
+}

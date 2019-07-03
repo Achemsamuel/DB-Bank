@@ -61,8 +61,7 @@ class SigninViewController : SuperViewController {
     }
     
     @IBAction func recoverPinButtonPressed(_ sender: UIButton) {
-        performSegue(withIdentifier: goToRecoverPin, sender: self)
-        self.instantiateDashVC(identifier: self.goToDashboard)
+       
     }
     
     

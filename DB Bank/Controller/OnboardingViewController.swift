@@ -22,8 +22,7 @@ class OnboardingViewController : SuperViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-//        GIDSignIn.sharedInstance()?.signOut()
-//        super.signOut()
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -60,7 +59,7 @@ class OnboardingViewController : SuperViewController {
     
     
     func setUpView () {
-        SVProgressHUD.dismiss()
+        //SVProgressHUD.dismiss()
         GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
         GIDSignIn.sharedInstance().delegate = self
         hideNavigationBar()
@@ -89,7 +88,7 @@ extension OnboardingViewController {
         }
         let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken, accessToken: authentication.accessToken)
         print("ID Token: \(String(describing: authentication.idToken)) Access Token: \(String(describing: authentication.accessToken))")
-        
+         SVProgressHUD.show()
         Auth.auth().signInAndRetrieveData(with: credential) { (authResult, error) in
             
             if error != nil {
@@ -97,7 +96,7 @@ extension OnboardingViewController {
                 return
             } else {
                 print("SignIn Successful")
-                SVProgressHUD.show()
+                
                 self.instantiateDashVC(identifier: self.goToDashboard)
             }
         }
