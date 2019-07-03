@@ -43,6 +43,8 @@ class SuperViewController: UIViewController, GIDSignInDelegate {
         GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
         GIDSignIn.sharedInstance().delegate = self
         
+        //Set Balance only once
+        //sendBalanceToDB(balance: 60000)
     }
     
     //Convert Int To String

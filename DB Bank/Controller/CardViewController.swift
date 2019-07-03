@@ -63,8 +63,9 @@ class CardViewController: SuperViewController {
        withdrawalAmountAlert()
         //print("New withdrawal amount: \(call)")
         
-        //Call the send balance method here after balance from transaction
-        //sendBalanceToDB(balance: 300000)
+        //Call the send balance method here after the app loads for the first time.
+        //
+        //sendBalanceToDB(balance: 5000000)
     }
     
     @IBAction func transferButtonPressed(_ sender: UIButton) {
