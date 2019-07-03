@@ -9,9 +9,13 @@
 import UIKit
 import GoogleSignIn
 import Firebase
+import FirebaseDatabase
 import SVProgressHUD
 
 
+//Firebase Database
+let firebaseDB = Database.database()
+var accountArray : [Account] = [Account]()
 
 class SuperViewController: UIViewController, GIDSignInDelegate {
     
@@ -23,10 +27,14 @@ class SuperViewController: UIViewController, GIDSignInDelegate {
     
     //Amount Withdrawn
     var amountWithdrawn = 0
+  
 
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+            _ = getbalance()
+        print("DDDD bal : \(DBalance)")
             doSetUp()
             
         }
@@ -35,8 +43,26 @@ class SuperViewController: UIViewController, GIDSignInDelegate {
         GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
         GIDSignIn.sharedInstance().delegate = self
         
-        
     }
+    
+    //Convert Int To String
+    func intToString (value : Int)  -> String {
+        if let newValue : String = String(value) {
+            return newValue
+            
+        }
+    }
+    
+    //Convert String to Int
+    func stringToInt (value : String) -> Int {
+        
+        if let newValue : Int = Int(value) {
+            return newValue
+        } else {
+            return 0
+        }
+    }
+    
     
     /*
      Mark:Navigation Bar Set up
@@ -127,6 +153,7 @@ class SuperViewController: UIViewController, GIDSignInDelegate {
     }
     
     func inquiryAlert (balance : String) {
+        
         let alert = UIAlertController(title: "Balance: \(balance)", message: "", preferredStyle: .alert)
         
         alert.addAction(UIAlertAction(title: "OK!", style: .cancel, handler: nil))
@@ -145,17 +172,77 @@ class SuperViewController: UIViewController, GIDSignInDelegate {
         present(alert, animated: true)
     }
     
+    
+    //MARK: Send Balance To DB
+    @objc dynamic func sendBalanceToDB (balance : Int) {
+        
+        let accountDB = firebaseDB.reference().child("Account Balance")
+        let accountDetailsDict = ["Owner" : Auth.auth().currentUser?.email as Any, "Balance" : balance] as [String : Any]
+        
+        accountDB.childByAutoId().setValue(accountDetailsDict) {(error, reference) in
+            if error != nil {
+                print("Could not save account balance to database: \(error?.localizedDescription ?? "")")
+            } else {
+                print("Balance saved successfully")
+            }
+            
+        }
+        
+    }
+    
+    @objc dynamic func sendTransactionToDB (amount : Int) {
+        
+         let transactionDB = firebaseDB.reference().child("Transaction History")
+        let transactionDBDetails = ["Owner" : Auth.auth().currentUser?.email as Any, "Transaction" :  amount] as [String : Any]
+        
+        transactionDB.childByAutoId().setValue(transactionDBDetails) {(error, reference) in
+            if error != nil {
+                print("Could not save transaction to Database: \(error?.localizedDescription ?? "")")
+            } else {
+                print("Transaction saved successfully")
+            }
+            
+        }
+        
+    }
+    
     //Retrieve Balance
-   @objc dynamic func retrieveBalance () -> Int {
-        //Should retrieve balance from the firDatabase instead
-        //let dashboardVC = DashboardViewController()
-        let balance = "180000"
-        if let convertInt = Int(balance) {
-            return convertInt
-        } else {
-            return 0
+    var DBalance = 0
+    
+    @objc dynamic func getbalance () -> Int {
+       // FirebaseApp.configure()
+        
+        
+        let accountBalanceDB = firebaseDB.reference().child("Account Balance")
+        accountBalanceDB.observe(.childAdded) { (snapshot) in
+
+            let snapshotValue = snapshot.value as! Dictionary<String, Any>
+
+            let balance = snapshotValue["Balance"] as! Int
+            let owner = snapshotValue["Owner"] as! String
+
+            let account = Account()
+            account.owner = owner
+            account.balance = balance
+
+            self.DBalance = balance
+            
+        }
+            return DBalance
         }
         //Balance label should read 0 at start
+    
+    //Withdraw Amount
+    func calculateBalance (balance :  Int, amount: Int) -> Int {
+        var newBalance : Int
+        if (amount < balance) {
+            newBalance = balance - amount
+            return newBalance
+        } else {
+            print("Insufficient funds")
+            return 0
+        }
+      
     }
     
     //Choose Withdrawal Amount Alert View
@@ -164,44 +251,63 @@ class SuperViewController: UIViewController, GIDSignInDelegate {
             let alert = UIAlertController(title: "Withdraw", message: "", preferredStyle: .alert)
         
             alert.addAction(UIAlertAction(title: "N500", style:.default , handler: { (action) in
-                //print("500 naira withdrawn")
+                
                 self.amountWithdrawn = 500
                 //call a function that takes in the amount and then subtracts it and returns the value remaining to the balance
-                var balance = self.retrieveBalance()
-                print("Balance from func is :\(balance)")
-                
-                if balance >= 500 {
-                    print("Can withdraw")
-                    balance -= 500
-                    print("Balance from func is :\(balance)")
-                }
-                else {
-                    print("Sadly, you do not have sufficient funds")
-                }
-                
+                let balance = self.getbalance()
+                print("Gotten Balance : \(balance)")
+               let newBalance = self.calculateBalance(balance: balance, amount: 500)
+                self.sendBalanceToDB(balance: newBalance)
+                self.sendTransactionToDB(amount: 500)
             }))
+        
             alert.addAction(UIAlertAction(title: "N1000", style:.default , handler: { (action) in
                 print("1000 naira withdrawn")
                 self.amountWithdrawn = 1000
-               // cashWithdrawn  = 1000
-                
+                let balance = self.getbalance()
+                print("Gotten Balance : \(balance)")
+                let newBalance = self.calculateBalance(balance: balance, amount: 1000)
+                self.sendBalanceToDB(balance: newBalance)
+                self.sendTransactionToDB(amount: 1000)
             }))
+        
             alert.addAction(UIAlertAction(title: "N2000", style:.default , handler: { (action) in
                 print("2000 naira withdrawn")
                 self.amountWithdrawn = 2000
-               // cashWithdrawn = 2000
+                let balance = self.getbalance()
+                print("Gotten Balance : \(balance)")
+                let newBalance = self.calculateBalance(balance: balance, amount: 2000)
+                self.sendBalanceToDB(balance: newBalance)
+                self.sendTransactionToDB(amount: 2000)
             }))
+        
             alert.addAction(UIAlertAction(title: "N5000", style:.default , handler: { (action) in
                 print("5000 naira withdrawn")
-                //self.amountWithdrawn = 5000
+                let balance = self.getbalance()
+                print("Gotten Balance : \(balance)")
+                let newBalance = self.calculateBalance(balance: balance, amount: 5000)
+                self.sendBalanceToDB(balance: newBalance)
+                self.sendTransactionToDB(amount: 5000)
             }))
+        
             alert.addAction(UIAlertAction(title: "N10000", style:.default , handler: { (action) in
                 print("10000 naira withdrawn")
-                //self.amountWithdrawn = 10000
+                self.amountWithdrawn = 10000
+                let balance = self.getbalance()
+                print("Gotten Balance : \(balance)")
+                let newBalance = self.calculateBalance(balance: balance, amount: 10000)
+                self.sendBalanceToDB(balance: newBalance)
+                self.sendTransactionToDB(amount: 10000)
             }))
+        
             alert.addAction(UIAlertAction(title: "N20000", style:.default , handler: { (action) in
                 print("20000 naira withdrawn")
                 self.amountWithdrawn = 20000
+                let balance = self.getbalance()
+                print("Gotten Balance : \(balance)")
+                let newBalance = self.calculateBalance(balance: balance, amount: 20000)
+                self.sendBalanceToDB(balance: newBalance)
+                self.sendTransactionToDB(amount: 20000)
             }))
             
             alert.addAction(UIAlertAction(title: "Enter Amount", style: .default, handler: { (action) in
@@ -211,7 +317,7 @@ class SuperViewController: UIViewController, GIDSignInDelegate {
             alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
             
             present(alert, animated: true)
-            //print("Amount withdrawn \(cashWithdrawn)")
+        
         
         
     }
@@ -219,8 +325,6 @@ class SuperViewController: UIViewController, GIDSignInDelegate {
     //Enter Amount to withdraw
     
     func enterAmountAlert ()  {
-        
-        var amountEntered = 0
         
         let alert = UIAlertController(title: "Enter Amount", message: "", preferredStyle: .alert)
         
@@ -232,11 +336,20 @@ class SuperViewController: UIViewController, GIDSignInDelegate {
         }
         alert.addAction(UIAlertAction(title: "Withdraw", style: .default, handler: { (action) in
             print(textField.text!)
-            if let intText = Int(textField.text!) {
-                amountEntered = intText
-                 print("new amount entered \(amountEntered)")
-                self.amountWithdrawn = amountEntered
+            
+            if textField.text!.isEmpty {
+                print("Please enter valid text")
+            } else {
+                let intBalance = self.stringToInt(value: textField.text!)
+                print("new amount entered \(intBalance)")
+                self.amountWithdrawn = intBalance
+                let balance = self.getbalance()
+                print("Gotten Balance : \(balance)")
+                let newBalance = self.calculateBalance(balance: balance, amount: intBalance)
+                self.sendBalanceToDB(balance: newBalance)
+                self.sendTransactionToDB(amount: intBalance)
             }
+            
           
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
@@ -244,6 +357,15 @@ class SuperViewController: UIViewController, GIDSignInDelegate {
         present(alert, animated: true)
         
         
+    }
+    
+    func formatBalance (balance : Int)  -> String {
+        
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .decimal
+        guard let formattedBalance = numberFormatter.string(from: NSNumber(value: balance)) else { return "" }
+        
+        return formattedBalance
     }
     
     //MARK: Date Picker Setup

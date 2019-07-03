@@ -80,4 +80,5 @@ class SigninViewController : SuperViewController {
         customButtom.customizeButton(button: submitButton)
         textFieldArray = [usernametextField, pintTextField]
     }
+    
 }

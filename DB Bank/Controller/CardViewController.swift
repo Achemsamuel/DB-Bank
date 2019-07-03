@@ -18,13 +18,19 @@ class CardViewController: SuperViewController {
     //Firebase Database
     let firebaseDB = Database.database()
     
+    
     //TableView Cell
     let cellId = "transactionsCell"
     
-    //
-     var balance = ""
-    var dBbalance = 0
+    
+    //T:
+    var balance = ""
     var accountArray : [Account] = [Account]()
+    var dBBalance = 0
+    //Transaction
+    var transactionHistoryArray : [TransactionHistory] = [TransactionHistory]()
+    
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,7 +64,7 @@ class CardViewController: SuperViewController {
         //print("New withdrawal amount: \(call)")
         
         //Call the send balance method here after balance from transaction
-        sendBalanceToDB(balance: 180000)
+        //sendBalanceToDB(balance: 300000)
     }
     
     @IBAction func transferButtonPressed(_ sender: UIButton) {
@@ -70,7 +76,10 @@ class CardViewController: SuperViewController {
     }
     
     @IBAction func inquiryButtonPressed(_ sender: UIButton) {
+        let stringValue = super.intToString(value: dBBalance)
+        self.balance = stringValue
         inquiryAlert(balance: balance)
+        
     }
     
     @IBAction func changePinButtonPressed(_ sender: UIButton) {
@@ -83,7 +92,7 @@ class CardViewController: SuperViewController {
     var transactionArray = [10000000, 244000, 34100, 60000, 41000, 32600]
 
     func setup () {
-        
+        retrieveTransactions()
         servicesButtonArray = [withdrawButton, transferButton, quicktellerButton, inquiryButton, pinButton]
         custombutton.customizeServicesButtons(buttons: servicesButtonArray)
         
@@ -102,7 +111,7 @@ extension CardViewController : UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         //TODO: Should return number of elements in transaction Array
         
-        return transactionArray.count
+        return transactionHistoryArray.count
     }
     
     
@@ -110,8 +119,8 @@ extension CardViewController : UITableViewDataSource, UITableViewDelegate {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! TransactionsTableViewCell
         cell.isUserInteractionEnabled = false
-        cell.valueLabel.text = ("-\(transactionArray[indexPath.row])")
-    
+        cell.valueLabel.text = ("-\(transactionHistoryArray.reversed()[indexPath.row].transaction)")
+        
         return cell
        
     }
@@ -125,7 +134,7 @@ extension CardViewController : UITableViewDataSource, UITableViewDelegate {
 
 extension CardViewController {
     
-    func sendBalanceToDB (balance : Int) {
+    override func sendBalanceToDB (balance : Int) {
         
         let accountDB = firebaseDB.reference().child("Account Balance")
         let accountDetailsDict = ["Owner" : Auth.auth().currentUser?.email as Any, "Balance" : balance] as [String : Any]
@@ -141,30 +150,50 @@ extension CardViewController {
 
     }
     
-  override  func retrieveBalance () -> Int {
-    
-    
+    public func retrieveBalance () -> Int {
+
+
     let accountBalanceDB = firebaseDB.reference().child("Account Balance")
     accountBalanceDB.observe(.childAdded) { (snapshot) in
-        
+
         let snapshotValue = snapshot.value as! Dictionary<String, Any>
-        
+
         let balance = snapshotValue["Balance"] as! Int
         let owner = snapshotValue["Owner"] as! String
-        
+
         let account = Account()
         account.owner = owner
         account.balance = balance
-        
-        self.accountArray.append(account)
-        print("Account array : \(self.accountArray[0].balance)")
-        let endIndex = self.accountArray.count
-        self.dBbalance = balance
-        //Now it is picking the exact balance, next is to use the balance to populate the balance label and then use it for other transaction
-        print("DB balance : \(self.dBbalance)")
-    }
-    return dBbalance
 
+        self.accountArray.append(account)
+        //print("Account array : \(self.accountArray[0].balance)")
+        //let endIndex = self.accountArray.count
+        self.dBBalance = balance
+        //Now it is picking the exact balance, next is to use the balance to populate the balance label and then use it for other transaction
+        print("DB balance : \(self.dBBalance)")
+    }
+        return dBBalance
+
+    }
+    
+    func retrieveTransactions () {
+        
+        let transactionDB = firebaseDB.reference().child("Transaction History")
+        transactionDB.observe(.childAdded) {(snapshot) in
+            
+            let snapshotValue = snapshot.value as! Dictionary<String, Any>
+            
+            let transaction = snapshotValue["Transaction"] as! Int
+            let owner = snapshotValue["Owner"] as! String
+            
+            let transactionHistory = TransactionHistory()
+            transactionHistory.owner = owner
+            transactionHistory.transaction = transaction
+            
+            self.transactionHistoryArray.append(transactionHistory)
+            self.tableView.reloadData()
+        }
+        
     }
     
 }
