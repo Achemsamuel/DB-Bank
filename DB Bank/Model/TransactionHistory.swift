@@ -12,4 +12,5 @@ class TransactionHistory {
     
     var owner = ""
     var transaction = 0
+    var ownerID = ""
 }

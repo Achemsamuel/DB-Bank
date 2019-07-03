@@ -12,4 +12,5 @@ class Account {
     
     var owner = ""
     var balance = 0
+    var ownerID = ""
 }

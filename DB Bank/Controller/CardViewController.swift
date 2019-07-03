@@ -36,7 +36,8 @@ class CardViewController: SuperViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        _ = retrieveBalance()
+        //_ = retrieveBalance()
+        _ = getbalance()
         setup()
         tableViewSetup()
         print(balance)
@@ -59,13 +60,7 @@ class CardViewController: SuperViewController {
      IB Actions
 */
     @IBAction func withdrawButtonPressed(_ sender: UIButton) {
-//         if cell.senderUsername.text == Auth.auth().currentUser?.email as String! {
        withdrawalAmountAlert()
-        //print("New withdrawal amount: \(call)")
-        
-        //Call the send balance method here after the app loads for the first time.
-        //
-        //sendBalanceToDB(balance: 5000000)
     }
     
     @IBAction func transferButtonPressed(_ sender: UIButton) {
@@ -136,44 +131,18 @@ extension CardViewController : UITableViewDataSource, UITableViewDelegate {
 extension CardViewController {
     
     override func sendBalanceToDB (balance : Int) {
-        
+     
         let accountDB = firebaseDB.reference().child("Account Balance")
-        let accountDetailsDict = ["Owner" : Auth.auth().currentUser?.email as Any, "Balance" : balance] as [String : Any]
-        
+        let accountDetailsDict = ["Owner" : Auth.auth().currentUser?.email as Any, "Owner ID" : Auth.auth().currentUser?.uid as Any, "Balance" : balance] as [String : Any]
+     
         accountDB.childByAutoId().setValue(accountDetailsDict) {(error, reference) in
             if error != nil {
                 print("Could not save account balance to database: \(error?.localizedDescription ?? "")")
             } else {
                 print("Balance saved successfully")
             }
-            
+     
         }
-
-    }
-    
-    public func retrieveBalance () -> Int {
-
-
-    let accountBalanceDB = firebaseDB.reference().child("Account Balance")
-    accountBalanceDB.observe(.childAdded) { (snapshot) in
-
-        let snapshotValue = snapshot.value as! Dictionary<String, Any>
-
-        let balance = snapshotValue["Balance"] as! Int
-        let owner = snapshotValue["Owner"] as! String
-
-        let account = Account()
-        account.owner = owner
-        account.balance = balance
-
-        self.accountArray.append(account)
-        //print("Account array : \(self.accountArray[0].balance)")
-        //let endIndex = self.accountArray.count
-        self.dBBalance = balance
-        //Now it is picking the exact balance, next is to use the balance to populate the balance label and then use it for other transaction
-        print("DB balance : \(self.dBBalance)")
-    }
-        return dBBalance
 
     }
     
@@ -186,13 +155,20 @@ extension CardViewController {
             
             let transaction = snapshotValue["Transaction"] as! Int
             let owner = snapshotValue["Owner"] as! String
+            let ownerID = snapshotValue["Owner ID"] as! String
             
-            let transactionHistory = TransactionHistory()
-            transactionHistory.owner = owner
-            transactionHistory.transaction = transaction
+            let currentUserID = Auth.auth().currentUser?.uid
             
-            self.transactionHistoryArray.append(transactionHistory)
-            self.tableView.reloadData()
+            if ownerID == currentUserID {
+                let transactionHistory = TransactionHistory()
+                transactionHistory.owner = owner
+                transactionHistory.transaction = transaction
+                transactionHistory.ownerID = ownerID
+                self.transactionHistoryArray.append(transactionHistory)
+                self.tableView.reloadData()
+            }
+            
+           
         }
         
     }
