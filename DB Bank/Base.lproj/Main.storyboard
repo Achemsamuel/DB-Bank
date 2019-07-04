@@ -782,7 +782,7 @@
                             <constraint firstItem="XVN-tJ-eim" firstAttribute="top" secondItem="vvH-Wu-Dcg" secondAttribute="bottom" constant="69.000000000000909" id="Bli-gx-XFd"/>
                             <constraint firstItem="g41-x7-GCN" firstAttribute="trailing" secondItem="Jbg-5z-TBI" secondAttribute="trailing" constant="200" id="Fjx-ku-1YR"/>
                             <constraint firstItem="XVN-tJ-eim" firstAttribute="centerX" secondItem="9Bv-N3-Hx6" secondAttribute="centerX" id="Gzo-1r-Rmo"/>
-                            <constraint firstItem="Jbg-5z-TBI" firstAttribute="top" secondItem="XVN-tJ-eim" secondAttribute="bottom" constant="38" id="JGy-Sz-MKd"/>
+                            <constraint firstItem="Jbg-5z-TBI" firstAttribute="top" relation="greaterThanOrEqual" secondItem="XVN-tJ-eim" secondAttribute="bottom" constant="38" id="JGy-Sz-MKd"/>
                             <constraint firstItem="Lhm-yq-2D1" firstAttribute="leading" secondItem="g41-x7-GCN" secondAttribute="leading" constant="30" id="JpJ-KP-NfN"/>
                             <constraint firstAttribute="trailing" secondItem="GZN-6x-6mi" secondAttribute="trailing" id="L31-GQ-UEe"/>
                             <constraint firstItem="vvH-Wu-Dcg" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="4qP-As-XDT" secondAttribute="trailing" constant="56" id="MuJ-kD-bB3"/>
@@ -791,6 +791,7 @@
                             <constraint firstItem="Jbg-5z-TBI" firstAttribute="leading" secondItem="g41-x7-GCN" secondAttribute="leading" constant="30" id="W0w-cu-WhB"/>
                             <constraint firstItem="g41-x7-GCN" firstAttribute="trailing" secondItem="XVN-tJ-eim" secondAttribute="trailing" constant="30" id="WS8-1r-WXa"/>
                             <constraint firstItem="Lhm-yq-2D1" firstAttribute="top" secondItem="g41-x7-GCN" secondAttribute="top" constant="36" id="XCH-mN-Wyu"/>
+                            <constraint firstItem="Jbg-5z-TBI" firstAttribute="top" secondItem="XVN-tJ-eim" secondAttribute="bottom" constant="38" id="Xk8-nQ-d4w"/>
                             <constraint firstItem="4qP-As-XDT" firstAttribute="top" secondItem="g41-x7-GCN" secondAttribute="top" constant="37" id="ZPD-HW-tbF"/>
                             <constraint firstItem="XVN-tJ-eim" firstAttribute="leading" secondItem="g41-x7-GCN" secondAttribute="leading" constant="30" id="clR-3T-ARp"/>
                             <constraint firstItem="t8G-Om-sh3" firstAttribute="top" secondItem="Lhm-yq-2D1" secondAttribute="bottom" constant="5" id="d7j-cK-fVu"/>
