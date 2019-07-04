@@ -31,7 +31,8 @@ class TransactionsTableViewCell: UITableViewCell {
         cellLabel.text = "Debit"
         cellLabel.textColor = .red
         
-        valueLabel = UILabel(frame:  CGRect(x: frame.width - 15, y: 0, width: 200, height: 40))
+        let labelW : CGFloat = 200
+        valueLabel = UILabel(frame:  CGRect(x: frame.width - 15, y: 0, width: labelW, height: 40))
         valueLabel.frame.origin.y = 0
         valueLabel.frame.origin.x = self.frame.width - 160
         valueLabel.textAlignment = .right
