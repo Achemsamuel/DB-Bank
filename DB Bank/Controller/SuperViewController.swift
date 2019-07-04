@@ -341,7 +341,7 @@ class SuperViewController: UIViewController, GIDSignInDelegate {
             newBalance = balance - amount
             self.sendBalanceToDB(balance: newBalance)
             self.sendTransactionToDB(amount: amount)
-            transactionSuccessful(balance: balance, type: type, amount: amount)
+            transactionSuccessful(balance: newBalance, type: type, amount: amount)
         } else {
             insufficientFundsAlert()
             print("Insufficient funds")
