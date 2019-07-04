@@ -61,7 +61,7 @@ class SigninViewController : SuperViewController {
     }
     
     @IBAction func recoverPinButtonPressed(_ sender: UIButton) {
-       
+       cannotChangePinAlert()
     }
     
     
