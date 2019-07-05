@@ -30,54 +30,13 @@ class SigninViewController : SuperViewController {
     
     var textFieldArray : [UITextField] = []
     
+    
     /*
      IB Actions
      */
      var count = 0
     @IBAction func submitButtonPressed(_ sender: UIButton) {
-        if (pintTextField.text!.isEmpty || pintTextField.text!.count < 6) {
-            failedSignInAlert()
-        } else {
-            
-            let result = verifyTextFields(textFields: textFieldArray)
-            if result {
-                SVProgressHUD.show()
-                print("Fields Sucessfully Validated")
-                Auth.auth().signIn(withEmail: usernametextField.text!, password: pintTextField.text!) { (user, error) in
-                    
-                    if error != nil {
-                        print("Failed Sign In Attempt: \(error?.localizedDescription ?? "Could not validate user details")")
-                        let wrongPinError = "The password is invalid or the user does not have a password."
-                        
-                        if (error?.localizedDescription == wrongPinError) {
-                            self.count += 1
-                            print(self.count)
-                            
-                            switch self.count {
-                            case 1:
-                                self.wrongPasswordAlert(t: 2, tr: "tries")
-                            case 2:
-                                self.wrongPasswordAlert(t: 1, tr: "try")
-                            case 3:
-                                self.blockedPasswordAlert()
-                            //self.blockUser(email: self.usernametextField.text!)
-                            default :
-                                print("default")
-                            }
-                        }
-                        SVProgressHUD.dismiss()
-                    } else {
-                        print("\(String(describing: user)) Successfully logged in")
-                        self.instantiateDashVC(identifier: self.goToDashboard)
-                        
-                    }
-                }
-                
-            } else {
-                missingFieldAlert()
-            }
-        }
-        
+        verifyUser(pinTextField: pintTextField, usernameTextfield: usernametextField)
     }
     
     @IBAction func createAccountButtonPressed(_ sender: UIButton) {
@@ -98,10 +57,72 @@ class SigninViewController : SuperViewController {
     }
     
     func setUp () {
+        if usernametextField.text?.isEmpty != true {
+             _ = retrieveBlockedUsers(username: usernametextField.text!)
+        }
         pintTextField.keyboardType = .numberPad
         SVProgressHUD.dismiss()
         customButtom.customizeButton(button: submitButton)
         textFieldArray = [usernametextField, pintTextField]
     }
     
+}
+
+extension SigninViewController {
+    
+    func verifyUser (pinTextField : UITextField, usernameTextfield : UITextField) {
+        let username = usernametextField.text ?? nil
+        if (pinTextField.text!.isEmpty || pinTextField.text!.count < 6) {
+            failedSignInAlert()
+        } else {
+            let blockedUsername = blockedUser
+            
+            if (blockedUsername == username) {
+                blockedPasswordAlert()
+                print(blockedUsername)
+            } else {
+                
+                let result = verifyTextFields(textFields: textFieldArray)
+                if result {
+                    SVProgressHUD.show()
+                    print("Fields Sucessfully Validated")
+                    Auth.auth().signIn(withEmail: usernametextField.text!, password: pintTextField.text!) { (user, error) in
+                        
+                        if error != nil {
+                            print("Failed Sign In Attempt: \(error?.localizedDescription ?? "Could not validate user details")")
+                            let wrongPinError = "The password is invalid or the user does not have a password."
+                            
+                            if (error?.localizedDescription == wrongPinError) {
+                                self.count += 1
+                                print(self.count)
+                                
+                                switch self.count {
+                                case 1:
+                                    self.wrongPasswordAlert(t: 2, tr: "tries")
+                                case 2:
+                                    self.wrongPasswordAlert(t: 1, tr: "try")
+                                case 3:
+                                    self.blockedPasswordAlert()
+                                    self.blockUser(email: username!)
+                                default :
+                                    print("default")
+                                }
+                            }
+                            SVProgressHUD.dismiss()
+                        } else {
+                            print("\(String(describing: user)) Successfully logged in")
+                            self.instantiateDashVC(identifier: self.goToDashboard)
+                            
+                        }
+                    }
+                    
+                } else {
+                    missingFieldAlert()
+                }
+            }
+            
+            
+        }
+        
+    }
 }

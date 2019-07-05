@@ -16,6 +16,7 @@
 		A5B2617322C6598400B7C2F0 /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5B2617222C6598400B7C2F0 /* DashboardViewController.swift */; };
 		A5C3836E22CB62A200A312AE /* Acoount.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5C3836D22CB62A200A312AE /* Acoount.swift */; };
 		A5C7F1CF22CC3D4A00984F9D /* TransactionHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5C7F1CE22CC3D4A00984F9D /* TransactionHistory.swift */; };
+		A5CE6E2122CF3F9A000AB9B2 /* BlockedUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5CE6E2022CF3F9A000AB9B2 /* BlockedUser.swift */; };
 		A5D24DCA22C387400031B9F0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D24DC922C387400031B9F0 /* AppDelegate.swift */; };
 		A5D24DCC22C387400031B9F0 /* SuperViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D24DCB22C387400031B9F0 /* SuperViewController.swift */; };
 		A5D24DCF22C387400031B9F0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A5D24DCD22C387400031B9F0 /* Main.storyboard */; };
@@ -78,6 +79,7 @@
 		A5B2617222C6598400B7C2F0 /* DashboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewController.swift; sourceTree = "<group>"; };
 		A5C3836D22CB62A200A312AE /* Acoount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Acoount.swift; sourceTree = "<group>"; };
 		A5C7F1CE22CC3D4A00984F9D /* TransactionHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionHistory.swift; sourceTree = "<group>"; };
+		A5CE6E2022CF3F9A000AB9B2 /* BlockedUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockedUser.swift; sourceTree = "<group>"; };
 		A5D24DC622C387400031B9F0 /* DB Bank.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DB Bank.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5D24DC922C387400031B9F0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A5D24DCB22C387400031B9F0 /* SuperViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuperViewController.swift; sourceTree = "<group>"; };
@@ -250,6 +252,7 @@
 			children = (
 				A5C3836D22CB62A200A312AE /* Acoount.swift */,
 				A5C7F1CE22CC3D4A00984F9D /* TransactionHistory.swift */,
+				A5CE6E2022CF3F9A000AB9B2 /* BlockedUser.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -674,6 +677,7 @@
 				A5D24DCC22C387400031B9F0 /* SuperViewController.swift in Sources */,
 				A5D24E0522C3BAB10031B9F0 /* CustomButton.swift in Sources */,
 				A5D24E0122C3A7A60031B9F0 /* ImageView.swift in Sources */,
+				A5CE6E2122CF3F9A000AB9B2 /* BlockedUser.swift in Sources */,
 				A531902422C91F7A0083E85A /* TransactionsTableViewCell.swift in Sources */,
 				A5C7F1CF22CC3D4A00984F9D /* TransactionHistory.swift in Sources */,
 				A5D24DFF22C3A3940031B9F0 /* OnboardingViewController.swift in Sources */,

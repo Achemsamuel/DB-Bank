@@ -80,7 +80,7 @@ extension OnboardingViewController {
     override func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
         if let error = error {
             print("Error, could not sign In User: \(error.localizedDescription)")
-            super.failedSignInAlert()
+            super.failedSignInAlert2()
             return
         }
         guard let authentication = user.authentication else {

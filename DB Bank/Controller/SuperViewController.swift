@@ -35,11 +35,13 @@ class SuperViewController: UIViewController, GIDSignInDelegate {
     //Amount Withdrawn
     var amountWithdrawn = 0
     
+    //
+    lazy var blockedUser = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
             _ = getbalance()
-        
-        print("DDDD bal : \(DBalance)")
+        _ = retrieveBlockedUsers(username: "")
             doSetUp()
             
         }
@@ -151,6 +153,13 @@ class SuperViewController: UIViewController, GIDSignInDelegate {
         self.present(alert, animated: true)
     }
     
+    func failedSignInAlert2 () {
+        let alert = UIAlertController(title: "Oops! 😢. \n ", message: "\n There was an error signing you in. \n Did You fill the fields correctly? \n If yes, then check your internet connection", preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "Back", style: .default, handler: nil))
+        self.present(alert, animated: true)
+    }
+    
     func wrongPasswordAlert (t : Int, tr : String) {
         let alert = UIAlertController(title: "Oops! 😢", message: "You entered the wrong password, you have \(t) more \(tr) before you are blocked", preferredStyle: .actionSheet)
         
@@ -159,7 +168,7 @@ class SuperViewController: UIViewController, GIDSignInDelegate {
     }
     
     func blockedPasswordAlert () {
-        let alert = UIAlertController(title: "Oops! 😢. \n You entered the wrong password three times and you have been blocked.", message: "Your ATM has been siezed, contact your bank to retrive your card", preferredStyle: .alert)
+        let alert = UIAlertController(title: "You entered the wrong password three times and you have been blocked.", message: "Your ATM has been siezed, contact your bank to retrive your card", preferredStyle: .alert)
         
         alert.addAction(UIAlertAction(title: "Done", style: .destructive, handler: nil))
         self.present(alert, animated: true)
@@ -179,8 +188,8 @@ class SuperViewController: UIViewController, GIDSignInDelegate {
         view.endEditing(true)
         for i in 0 ..< textField.count {
             if textField[0].text != textField[1].text {
-                print("First pin \(textField[i])")
-                print("second pin \(textField[i+1])")
+                //print("First pin \(textField[i])")
+                //print("second pin \(textField[i+1])")
                 return false
             }
         }
@@ -322,7 +331,7 @@ class SuperViewController: UIViewController, GIDSignInDelegate {
 
             let snapshotValue = snapshot.value as! Dictionary<String, Any>
             
-            print("snapshot Value balance and stuff \(snapshotValue)")
+            //print("snapshot Value balance and stuff \(snapshotValue)")
             
             let balance = snapshotValue["Balance"] as! Int
             let owner = snapshotValue["Owner"] as! String
@@ -336,7 +345,7 @@ class SuperViewController: UIViewController, GIDSignInDelegate {
                 account.balance = balance
                 
                 self.DBalance = balance
-                print("Sef  :\(self.DBalance)")
+                //print("Sef  :\(self.DBalance)")
             }
             else {
                 print("Invalid user")
@@ -384,7 +393,7 @@ class SuperViewController: UIViewController, GIDSignInDelegate {
                 
                 self.amountWithdrawn = amount
                 let balance = self.getbalance()
-                print("Gotten Balance : \(balance)")
+               // print("Gotten Balance : \(balance)")
                 self.calculateBalance(balance: balance, amount: amount, type: type)
                 
             }))
@@ -412,7 +421,7 @@ class SuperViewController: UIViewController, GIDSignInDelegate {
             textField = alertTextField
         }
         alert.addAction(UIAlertAction(title: "Withdraw", style: .default, handler: { (action) in
-            print(textField.text!)
+            //print(textField.text!)
             
             if textField.text!.isEmpty {
                 self.enterValidAccount(title: "Please enter valid amount")
@@ -424,10 +433,8 @@ class SuperViewController: UIViewController, GIDSignInDelegate {
                     self.enterValidAccount(title: "Please enter a multiple of N500 or N1000")
                     
                 } else {
-                    print("new amount entered \(intBalance)")
                     self.amountWithdrawn = intBalance
                     let balance = self.getbalance()
-                    print("Gotten Balance : \(balance)")
                     self.calculateBalance(balance: balance, amount: intBalance, type: type)
                 }
                 
@@ -553,8 +560,46 @@ extension SuperViewController : GIDSignInUIDelegate {
     
     func blockUser (email : String) {
         let blockedUsers = firebaseDB.reference().child("Blocked Users")
-        blockedUsers.child(email).setValue(true)
+        let blockedDict = ["user" : email, "isBlcoked" : true] as [String : Any]
+        blockedUsers.childByAutoId().setValue(blockedDict) {(error, reference) in
+            if error != nil {
+                print("Error blocing user \(error?.localizedDescription)")
+            } else {
+                print("User added to blocked list successfully")
+            }
+        }
     }
+    
+   
+    func retrieveBlockedUsers (username : String) -> String {
+        
+        let blockedUsersDB = firebaseDB.reference().child("Blocked Users")
+        blockedUsersDB.observe(.childAdded) { (snapshot) in
+            
+            let snapshotValue = snapshot.value as! Dictionary<String, Any>
+            
+            //print("snapshot Value balance and stuff \(snapshotValue)")
+            
+            let user = snapshotValue["user"] as! String
+            let isBlocked = snapshotValue["isBlcoked"] as! Bool
+            
+            if username == user {
+                print("User already blocked")
+            } else {
+                if isBlocked == true {
+                    let blockedUsers = BlockedUser()
+                    blockedUsers.email = user
+                    blockedUsers.isBlocked = isBlocked
+                     self.blockedUser = user
+                }
+            }
+            
+           
+    }
+    
+        return blockedUser
+    }
+    
     
 }
 
