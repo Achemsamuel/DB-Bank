@@ -145,9 +145,23 @@ class SuperViewController: UIViewController, GIDSignInDelegate {
     }
     
     func failedSignInAlert () {
-        let alert = UIAlertController(title: "Oops! 😢", message: "There was an error signing you in. Did You fill the fields correctly? If yes, then check your internet connection", preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: "Password must not be less than six numbers", message: "\n There was an error signing you in. \n Did You fill the fields correctly? \n If yes, then check your internet connection", preferredStyle: .alert)
         
         alert.addAction(UIAlertAction(title: "Back", style: .default, handler: nil))
+        self.present(alert, animated: true)
+    }
+    
+    func wrongPasswordAlert (t : Int, tr : String) {
+        let alert = UIAlertController(title: "Oops! 😢", message: "You entered the wrong password, you have \(t) more \(tr) before you are blocked", preferredStyle: .actionSheet)
+        
+        alert.addAction(UIAlertAction(title: "Retry", style: .destructive, handler: nil))
+        self.present(alert, animated: true)
+    }
+    
+    func blockedPasswordAlert () {
+        let alert = UIAlertController(title: "Oops! 😢. \n You entered the wrong password three times and you have been blocked.", message: "Your ATM has been siezed, contact your bank to retrive your card", preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "Done", style: .destructive, handler: nil))
         self.present(alert, animated: true)
     }
     
@@ -535,6 +549,11 @@ extension SuperViewController : GIDSignInUIDelegate {
     
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
         
+    }
+    
+    func blockUser (email : String) {
+        let blockedUsers = firebaseDB.reference().child("Blocked Users")
+        blockedUsers.child(email).setValue(true)
     }
     
 }
